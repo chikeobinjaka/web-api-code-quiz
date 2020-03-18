@@ -1,0 +1,60 @@
+/* ************************************************** */
+/* Parolanta Technologies                             */
+/* ************************************************** */
+
+/* Define a normal flex container that is horizontal and goes from left to right with wrapping*/
+.pt-flex-container-horizontal-wrapping {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/*Define a normal flex container that is vertical and goes from left to right with wrapping */
+.pt-flex-container-vertical-wrapping {
+  display: flex; /* or inline-flex */
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.pt-flex-justify-start {
+  display: flex; /* or inline-flex */
+  justify-content: flex-start;
+}
+
+.pt-flex-justify-end {
+  display: flex; /* or inline-flex */
+  justify-content: flex-end;
+}
+
+.pt-flex-justify-end {
+  display: flex; /* or inline-flex */
+  justify-content: center;
+}
+
+.pt-flex-justify-space-between {
+  display: flex; /* or inline-flex */
+  justify-content: space-between;
+}
+
+.pt-flex-justify-space-around {
+  display: flex; /* or inline-flex */
+  justify-content: space-around;
+}
+
+.pt-flex-justify-space-evenly {
+  display: flex; /* or inline-flex */
+  justify-content: space-evenly;
+}
+
+.fixed-bottom {
+  position: fixed;
+  margin: auto;
+  height: 50px;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background-color:darkgrey;
+  margin-top: 25px;
+}
