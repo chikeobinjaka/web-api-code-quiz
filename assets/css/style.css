@@ -1,0 +1,180 @@
+/*W3hubs.com - Download Free Responsive Website Layout Templates designed on HTML5 CSS3,
+Bootstrap which are 100% Mobile friendly. w3Hubs all Layouts are responsive cross 
+browser supported, best quality world class designs.*/
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,500,500i,600,700,700i,800");
+body {
+  background-image: linear-gradient(to right, #f7de1c, #64638f, #0c907d);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Raleway", sans-serif;
+}
+
+a:link {
+  text-decoration: none;
+}
+h1 {
+  text-align: center;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: 40px;
+  padding-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+form {
+  display: block;
+  text-align: center;
+  margin: 10px auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 4px;
+  background-image: linear-gradient(to right, #9fe8fa, #26baee);
+}
+
+.btn-dark {
+  width: 80%;
+  font-size: 18px;
+}
+
+.form-check {
+  text-align: center !important;
+  padding: 10px;
+}
+
+#registration .form1 {
+  width: 60%;
+  border: 2px solid black;
+  display: block;
+  text-align: center;
+  margin: 70px auto;
+  padding: 50px;
+}
+
+.form-control::placeholder {
+  padding-left: 10px;
+}
+
+.form-control {
+  outline: none;
+  border: none;
+  margin: 0 auto;
+  width: 80%;
+  border-bottom: 1px solid #fff;
+  border-radius: 40px;
+  height: 40px;
+}
+
+.form-control:focus {
+  border: none;
+
+  box-shadow: none;
+  border: 1px solid #000;
+}
+
+.form-control:hover {
+  text-decoration: none;
+  border: none;
+
+  box-shadow: none;
+  border: 1px solid #000;
+}
+
+.form-check {
+  text-align: left;
+  font-size: 20px;
+}
+
+/* .login-register-btn {
+  margin-top: 15px;
+  border-radius: 15px;
+  background-color: saddlebrown;
+} */
+@media (max-width: 768px) {
+  #registration {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+}
+
+.login-register-btn {
+  margin-top: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+  padding: 2.5rem 7.5rem;
+  border-radius: 3.75rem;
+  line-height: .1rem;
+  font-size: 2rem;
+  font-weight: 600;
+
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.5),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+}
+
+login-register-btn span {
+  color: transparent;
+  background-image: linear-gradient(0deg, #ee82da 0%, #fefafd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 2px hsla(290, 100%, 20%, 1));
+}
+
+butlogin-register-btnton::before {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+
+  opacity: 0.7;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 20%,
+    #ffffff 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+login-register-btn::after {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+
+  filter: blur(1px);
+  opacity: 0.05;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 20%,
+    #ffffff 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@media (max-width: 424px) {
+  h1 {
+    font-size: 30px;
+  }
+}

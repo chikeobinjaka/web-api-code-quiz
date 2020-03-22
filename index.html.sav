@@ -49,12 +49,7 @@
                   <input type="checkbox" /> Remember Me
                 </div>
 -->
-                <button
-                  class="btn btn-dark login-register-btn"
-                  id="login-button"
-                >
-                  <span>Login</span>
-                </button>
+                <button class="btn btn-dark" style="margin-top: 25px;">Login</button>
               </form>
             </div>
           </div>
@@ -65,30 +60,6 @@
                 <div class="form-group">
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstName"
-                    class="form-control"
-                    placeholder="First Name"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    class="form-control"
-                    placeholder="Last Name"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <input
-                    type="text"
-                    id="userName"
-                    name="userName"
                     class="form-control"
                     placeholder="Username"
                     required
@@ -98,8 +69,6 @@
                 <div class="form-group">
                   <input
                     type="password"
-                    id="password"
-                    name="password"
                     class="form-control"
                     placeholder="Password"
                     required
@@ -114,11 +83,9 @@
                     required
                   />
                 </div>
-                <!--
                 <div class="form-group">
                   <input type="date" class="form-control" required />
                 </div>
-                -->
                 <div class="form-group">
                   <input
                     type="email"
@@ -127,13 +94,8 @@
                     required
                   />
                 </div>
-                <button
-                  type="submit"
-                  class="btn btn-dark login-register-btn"
-                  id="register-button"
-                >
-                  Registration
-                </button>
+
+                <button type="submit" class="btn btn-dark">Registration</button>
               </form>
             </div>
           </div>
