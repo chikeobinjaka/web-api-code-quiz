@@ -161,8 +161,17 @@ function loadUserData() {
     }
   }
 }
+var registerButton = document.getElementById("register-button");
+var loginButton = document.getElementById("login-button");
 
-function registerUser(id,fname,lname,pwd,email){
+registerButton.addEventListener("click", function(event) {
+  event.preventDefault();
+  console.log("Register button clicked");
+});
 
-}
+loginButton.addEventListener("click", function(event) {
+  event.preventDefault();
+  console.log("Login button clicked");
+});
+function registerUser(id, fname, lname, pwd, email) {}
 loadUserData();
