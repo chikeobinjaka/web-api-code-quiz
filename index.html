@@ -23,14 +23,16 @@
     <section id="login-or-register">
       <div class="container">
         <h1>Parolanta Technologies Web API Code Quiz</h1>
-        <div class="row">
+        <div class="row" id="container-row">
           <div class="col-md-6">
             <div id="log">
-              <form>
+              <form id="login-form">
                 <h2>Login</h2>
                 <div class="form-group">
                   <input
-                    type="email"
+                    type="text"
+                    id="login-userName"
+                    name="login-userName"
                     class="form-control"
                     placeholder="Username"
                     required
@@ -39,6 +41,8 @@
                 <div class="form-group">
                   <input
                     type="password"
+                    id="login-password"
+                    name="login-password"
                     class="form-control"
                     placeholder="Password"
                     required
@@ -52,15 +56,19 @@
                 <button
                   class="btn btn-dark login-register-btn"
                   id="login-button"
+                  type="submit"
                 >
                   <span>Login</span>
                 </button>
+                <p
+                  id="login-error-message" class="login-register-error-message"
+                ></p>
               </form>
             </div>
           </div>
           <div class="col-md-6">
             <div id="registration">
-              <form>
+              <form id="registration-form">
                 <h2>Registration</h2>
                 <div class="form-group">
                   <input
@@ -87,8 +95,8 @@
                 <div class="form-group">
                   <input
                     type="text"
-                    id="userName"
-                    name="userName"
+                    id="registration-userName"
+                    name="registration-userName"
                     class="form-control"
                     placeholder="Username"
                     required
@@ -98,8 +106,8 @@
                 <div class="form-group">
                   <input
                     type="password"
-                    id="password"
-                    name="password"
+                    id="registration-password"
+                    name="registration-password"
                     class="form-control"
                     placeholder="Password"
                     required
@@ -109,6 +117,8 @@
                 <div class="form-group">
                   <input
                     type="password"
+                    id="registration-confirm-password"
+                    name="registration-confirm-password"
                     class="form-control"
                     placeholder="Confirm Password"
                     required
@@ -122,6 +132,8 @@
                 <div class="form-group">
                   <input
                     type="email"
+                    id="email-input"
+                    name="email-input"
                     class="form-control"
                     placeholder="Email"
                     required
@@ -131,9 +143,13 @@
                   type="submit"
                   class="btn btn-dark login-register-btn"
                   id="register-button"
+                  name="register-button"
                 >
                   Registration
                 </button>
+                <p
+                  id="registration-error-message" class="login-register-error-message"
+                ></p>
               </form>
             </div>
           </div>
@@ -143,6 +159,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="./assets/javascript/const.js"></script>
     <script src="./assets/javascript/script.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
