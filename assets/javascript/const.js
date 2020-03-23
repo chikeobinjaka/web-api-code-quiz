@@ -32,6 +32,9 @@ const TEST_USER_DATA = {
   }
 };
 
+/* The follwoing Web Technology - HTML questions come from
+ * https://www.avatto.com/computer-science/test/mcqs/web-technology/html/162/1.html
+ */
 const QUESTION0 = "What does HTML stand for?";
 const CHOICES0 = {
   "Hyper Text Markup Language": true,
@@ -132,7 +135,8 @@ const SESSION_ID_LENGTH = 24;
 
 var allUserData;
 
-/* Generates a random string of length len from characters in inputString
+/*
+ * Generates a random string of length len from characters in inputString
  */
 function randomString(len, inputString) {
   var ans = "";
@@ -141,15 +145,20 @@ function randomString(len, inputString) {
   }
   return ans;
 }
-/* Test function that saves the test userData into localStorage
+/*
+ * Test function that saves the test userData into localStorage
  */
 function initData() {
   localStorage.setItem(USER_DATA_KEY, JSON.stringify(TEST_USER_DATA));
   console.log(TEST_USER_DATA);
 }
 
+/*
+ *
+ */
 function getUserDataLogText(ud) {
-  var retval = "\n\tUser Id         : " + ud.userId;
+  var retval = "\n";
+  retval += "\n\tUser Id       : " + ud.userName;
   retval += "\n\tFirst Name    : " + ud.firstName;
   retval += "\n\tLast Name     : " + ud.lastName;
   retval += "\n\tPassword      : " + ud.password;
@@ -162,7 +171,9 @@ function getUserDataLogText(ud) {
   retval += "\n\tSession Time  : " + ud.sessionTime;
   return retval;
 }
-/* Function that reads the localStorage to locate the userData object.
+
+/* 
+ * Function that reads the localStorage to locate the userData object.
  * This object contains an object that has all the user information.
  * The "key" for this object is USER_DATA_KEY
  */
@@ -186,22 +197,14 @@ function loadAllUserData() {
         var uname = objectKeys[index];
         var ud = allUserData[uname];
         outString += getUserDataLogText(ud);
-        // outString += "\n\nUser Name     : " + uname;
-        // outString += "\n\tFirst Name    : " + ud.firstName;
-        // outString += "\n\tLast Name     : " + ud.lastName;
-        // outString += "\n\tPassword      : " + ud.password;
-        // outString += "\n\tEmail         : " + ud.email;
-        // outString += "\n\tSession Count : " + ud.sessionCount;
-        // outString += "\n\tMin Score     : " + ud.minScore;
-        // outString += "\n\tMax Score     : " + ud.maxScore;
-        // outString += "\n\tLast Score    : " + ud.lastScore;
       }
       console.log(outString);
     }
   }
 }
 
-/* makes sure allUserData is loaded and then returns the userData
+/*
+ * Makes sure allUserData is loaded and then returns the userData
  * corresponding to the userId
  */
 function getUserData(userId) {
