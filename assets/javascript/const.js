@@ -113,21 +113,21 @@ const QUESTION9 = "Web pages starts with which ofthe following tag?";
 const CHOICES9 = {
   "<body>": false,
   "<title>": false,
-  "<html>": false,
+  "<html>": true,
   "<form>": false
 };
 
 const QUESTIONS = {
-  QUESTION0: CHOICES0,
-  QUESTION1: CHOICES1,
-  QUESTION2: CHOICES2,
-  QUESTION3: CHOICES3,
-  QUESTION4: CHOICES4,
-  QUESTION5: CHOICES5,
-  QUESTION6: CHOICES6,
-  QUESTION7: CHOICES7,
-  QUESTION8: CHOICES8,
-  QUESTION9: CHOICES9
+  [QUESTION0]: CHOICES0,
+  [QUESTION1]: CHOICES1,
+  [QUESTION2]: CHOICES2,
+  [QUESTION3]: CHOICES3,
+  [QUESTION4]: CHOICES4,
+  [QUESTION5]: CHOICES5,
+  [QUESTION6]: CHOICES6,
+  [QUESTION7]: CHOICES7,
+  [QUESTION8]: CHOICES8,
+  [QUESTION9]: CHOICES9
 };
 
 const SESSION_ID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -172,7 +172,7 @@ function getUserDataLogText(ud) {
   return retval;
 }
 
-/* 
+/*
  * Function that reads the localStorage to locate the userData object.
  * This object contains an object that has all the user information.
  * The "key" for this object is USER_DATA_KEY

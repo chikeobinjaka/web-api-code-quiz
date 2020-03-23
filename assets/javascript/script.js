@@ -20,6 +20,18 @@ function setSessionData(userData) {
     localStorage.setItem(USER_DATA_KEY, JSON.stringify(allUserData));
   }
 }
+
+function clearRegistrationForm() {
+  document.getElementById("firstname").value = "";
+  document.getElementById("lastName").value = "";
+  document.getElementById("registration-userName").value = "";
+  document.getElementById("registration-password").value = "";
+  document.getElementById("registration-confirm-password").value = "";
+  document.getElementById("email-input").value = "";
+
+  document.getElementById("registration-error-message").innerHTML = "";
+  document.getElementById("firstname").focus();
+}
 /*
  * Event listeners are applied to the forms surrounding the buttons.
  * that way when the button is clicked, the event is fired since the button
@@ -38,10 +50,11 @@ registerationForm.addEventListener("submit", function(event) {
   var emailEl = document.getElementById("email-input");
   var errorEl = document.getElementById("registration-error-message");
 
-  var fname, lname, uname, pwd, pwd2, emailString;
+  var fname, lname, uname, pwd, pwd2, emailString, errText;
 
   errorEl.innerHTML = "";
 
+  var udata = {};
   // First Name
   if (
     (svalue = fnameEl.value) === null ||
@@ -52,6 +65,8 @@ registerationForm.addEventListener("submit", function(event) {
     fnameEl.value = "";
     return;
   }
+  udata.firstName = fname;
+
   // Last Name
   if (
     (svalue = lnameEl.value) === null ||
@@ -62,6 +77,8 @@ registerationForm.addEventListener("submit", function(event) {
     lnameEl.value = "";
     return;
   }
+  udata.lastName = lname;
+
   // User Name
   if (
     (svalue = unameEl.value) === null ||
@@ -72,6 +89,8 @@ registerationForm.addEventListener("submit", function(event) {
     unameEl.value = "";
     return;
   }
+  udata.userName = uname;
+
   // Password
   if ((svalue = pwdEl.value) === null || (pwd = svalue.trim()).length === 0) {
     errorEl.innerHTML = "Invalid Password";
@@ -94,6 +113,8 @@ registerationForm.addEventListener("submit", function(event) {
     pwdEl2.value = "";
     pwdEl.focus();
   }
+  udata.password = pwd;
+
   // Email
   if (
     (svalue = emailEl.value) === null ||
@@ -104,16 +125,28 @@ registerationForm.addEventListener("submit", function(event) {
     emailEl.value = "";
     return;
   }
-
+  udata.email = emailString;
   //
   // check if user exists in the database by userName
   var userData = getUserData(uname);
   if (userData != null) {
-    errorEl.innerHTML =
-      "Username <strong>" + uname + "</strong> already in use";
+    errText = "Username <strong>" + uname;
+    errText += "</strong> already in use";
+    errorEl.innerHTML = errText;
     unameEl.value = "";
     unameEl.focus();
+    return;
   }
+  udata.sessionCount = 0;
+  // now save data into localStorage
+  var logString = "Successfully registered user:\n";
+  logString += getUserDataLogText(udata);
+  console.log(logString);
+  // save registrant into localStorage
+  setSessionData(udata);
+
+  // clear the register form
+  clearRegistrationForm();
 });
 
 /*
@@ -176,5 +209,4 @@ loginForm.addEventListener("submit", function(event) {
   window.location.replace(targetUrl);
 });
 
-initData();
 loadAllUserData();

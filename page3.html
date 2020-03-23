@@ -17,7 +17,7 @@
     />
     <!-- Project specific CSS -->
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Web API Code Quiz: Page 2</title>
+    <title>Web API Code Quiz: Page 3</title>
   </head>
   <body>
     <div class="container-fluid">
@@ -36,27 +36,43 @@
         <!-- The Quiz section will be rendered below here. -->
         <!-- First we will remove and all the elements from here -->
         <!-- to the end of the container <div> -->
-        <section id="remove-section">
-          <div class="row justify-content-center">
-            <h4 id="welcome-message" style="color: black;"></h4>
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <section id="remove-section">
+              <h3>What does HTML stand for?</h3>
+              <div class="list-group">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg btn-block"
+                  data-correct="true"
+                >
+                  Hyper Text Markup Language
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg btn-block"
+                  data-correct="false"
+                >
+                  High Text Markup Language
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg btn-block"
+                  data-correct="false"
+                >
+                  Hyper Tabular Markup Language
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg btn-block"
+                  data-correct="false"
+                >
+                  None of the above
+                </button>
+              </div>
+            </section>
           </div>
-          <div class="row justify-content-center">
-            <p style="color: white;font-weight: bold;">
-              Try to answer the following code related questions within the time
-              limit. Keep in mind that incorrect answers will penalize your
-              score time by six (6) seconds You have sizty (60) seconds to
-              answer tem (10) questions. Good luck!
-            </p>
-          </div>
-          <div class="row justify-content-center">
-            <button class="button-start-quiz" id="start-quiz-btn" type="button">
-              Start Quiz
-            </button>
-          </div>
-          <div class="row justify-content-center">
-            <p id="start-quiz-error" style="color: red;"></p>
-          </div>
-        </section>
+        </div>
       </div>
     </section>
 

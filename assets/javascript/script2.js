@@ -1,5 +1,16 @@
 console.log("Value of USER_DATA_KEY is " + USER_DATA_KEY);
 
+var containerDivEl = document.getElementById("container-div");
+// section that will contain the dynamic part of the page. Will
+// be child of containerDivEl
+var dynamicSection;
+const DYNAMIC_SECTION_ID = "dynamic-section";
+const OPTIONS_BUTTON_CLASS_ARRAY = [
+  "btn",
+  "btn-primary",
+  "btn-lg",
+  "btn-block"
+];
 /*
 Reads the session data from the URL and checks against the information in the
  database as well as compare the time to the current time. If more than 
@@ -11,7 +22,6 @@ function checkSessionData() {
   var urlParams = new URLSearchParams(queryString);
   var userId, sessionId, sessionTime, urlSessionMilli, sessionMilli;
   var userData, currentTimeMilli;
-  var btnDisable = false;
   var startQuizBtn = document.getElementById("start-quiz-btn");
   var errEl = document.getElementById("start-quiz-error");
   var errText;
@@ -97,6 +107,10 @@ function checkSessionData() {
     return false;
   }
   console.log(getUserDataLogText(userData));
+  // WELCOME!!
+  var welcomeText = "Welcome <strong>" + userData.firstName + " ";
+  welcomeText += userData.lastName + "</strong> (" + userData.userName + ")";
+  document.getElementById("welcome-message").innerHTML = welcomeText;
   return true;
 }
 
@@ -105,7 +119,74 @@ function disableAndFadeButton(btn) {
   btn.style.opacity = 0.6;
 }
 
+checkSessionData();
 
-if (checkSessionData() === false) {
-  return;
+var startQuizButtonEl = document.getElementById("start-quiz-btn");
+
+startQuizButtonEl.addEventListener("click", function(event) {
+  console.log("Start Quiz Button clicked");
+  var sectionEl = document.getElementById("remove-section");
+  containerDivEl.removeChild(sectionEl);
+
+  // create DIV element with class of "row justify-content-center"
+  // and append to container
+  var div1 = document.createElement("div");
+  div1.classList.add("row");
+  div1.classList.add("justify-content-center");
+  containerDivEl.appendChild(div1);
+
+  var removeSectionParent = document.createElement("div");
+  removeSectionParent.classList.add("col-sm-6");
+  div1.appendChild(removeSectionParent);
+
+  var removeSection = document.createElement("section");
+  removeSection.id = "remove-section";
+  removeSectionParent.appendChild(removeSection);
+
+  var questionsKeys = Object.keys(QUESTIONS);
+  console.log("QUESTIONS Keys: " + questionsKeys);
+  // get the first question
+  var question = questionsKeys[0];
+  var options = QUESTIONS[question];
+
+  renderQuestion(question, options, removeSection);
+
+});
+
+function renderQuestion(question, options, removeSection) {
+  // create h3 tag and append to remove-section
+  var h3tag = document.createElement("h3");
+  h3tag.innerText = question;
+  removeSection.appendChild(h3tag);
+
+  // create "<div class="list-group">" and append to remove-section
+  var listGroupDiv = document.createElement("div");
+  listGroupDiv.classList.add("list-group");
+  removeSection.appendChild(listGroupDiv);
+  var buttonList = getListGroupButtons(options, OPTIONS_BUTTON_CLASS_ARRAY);
+  for (let index = 0; index < buttonList.length; index++) {
+    listGroupDiv.appendChild(buttonList[index]);
+  }
+}
+/*
+ * Returns a list of buttons from the options. Options contain possible answers as keys
+ * and true/false as values
+ */
+function getListGroupButtons(options, classArray) {
+  var retval = [];
+  var optionsKeys = Object.keys(options);
+
+  for (let index = 0; index < optionsKeys.length; index++) {
+    var optionKey = optionsKeys[index];
+    var optionValue = options[optionKey];
+    var optionButton = document.createElement("button");
+    optionButton.setAttribute("type", "button");
+    optionButton.setAttribute("data-correct", optionValue);
+    // add the class list
+    optionButton.classList.add(...classArray);
+    // set the button text
+    optionButton.innerHTML = optionKey;
+    retval.push(optionButton);
+  }
+  return retval;
 }
