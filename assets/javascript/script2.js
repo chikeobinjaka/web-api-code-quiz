@@ -5,6 +5,7 @@ var containerDivEl = document.getElementById("container-div");
 // be child of containerDivEl
 var dynamicSection;
 const DYNAMIC_SECTION_ID = "dynamic-section";
+const LIST_GROUP_DIV_ID = "list-group-div";
 const OPTIONS_BUTTON_CLASS_ARRAY = [
   "btn",
   "btn-primary",
@@ -145,12 +146,15 @@ startQuizButtonEl.addEventListener("click", function(event) {
 
   var questionsKeys = Object.keys(QUESTIONS);
   console.log("QUESTIONS Keys: " + questionsKeys);
-  // get the first question
-  var question = questionsKeys[0];
+
+  // get a random question
+  var qlen = questionsKeys.length;
+  var pointer = Math.floor(Math.random() * qlen);
+  // get the question
+  var question = questionsKeys[pointer];
   var options = QUESTIONS[question];
 
   renderQuestion(question, options, removeSection);
-
 });
 
 function renderQuestion(question, options, removeSection) {
@@ -162,11 +166,20 @@ function renderQuestion(question, options, removeSection) {
   // create "<div class="list-group">" and append to remove-section
   var listGroupDiv = document.createElement("div");
   listGroupDiv.classList.add("list-group");
+  listGroupDiv.id = LIST_GROUP_DIV_ID;
   removeSection.appendChild(listGroupDiv);
   var buttonList = getListGroupButtons(options, OPTIONS_BUTTON_CLASS_ARRAY);
   for (let index = 0; index < buttonList.length; index++) {
     listGroupDiv.appendChild(buttonList[index]);
   }
+
+  // attach a listener to the listGroupDiv that will fire when the buttons are clicked
+  listGroupDiv.addEventListener("click", function(event) {
+    event.preventDefault();
+    var targetButton = event.target;
+    
+    console.log("\nOne of the option buttons has been clicked");
+  });
 }
 /*
  * Returns a list of buttons from the options. Options contain possible answers as keys
@@ -177,6 +190,7 @@ function getListGroupButtons(options, classArray) {
   var optionsKeys = Object.keys(options);
 
   for (let index = 0; index < optionsKeys.length; index++) {
+    // var letterCode = getLetterCode(index);
     var optionKey = optionsKeys[index];
     var optionValue = options[optionKey];
     var optionButton = document.createElement("button");
@@ -186,7 +200,51 @@ function getListGroupButtons(options, classArray) {
     optionButton.classList.add(...classArray);
     // set the button text
     optionButton.innerHTML = optionKey;
+    // var divSpan = getButtonDivSpan(letterCode);
+    // divSpan.textContent = optionKey;
+    // optionButton.appendChild(divSpan);
     retval.push(optionButton);
+
+    console.log("Option Button:\n" + optionButton.outerHTML);
   }
+  return retval;
+}
+
+/*
+ * Converts 0-3 to (A), (B), (C) and (D)
+ */
+function getLetterCode(index) {
+  var letterCode;
+  switch (index) {
+    case 0:
+      letterCode = "(A)";
+      break;
+    case 1:
+      letterCode = "(B)";
+      break;
+    case 2:
+      letterCode = "(C)";
+      break;
+    case 3:
+      letterCode = "(D)";
+      break;
+  }
+  return letterCode;
+}
+/*
+ * Return a <span> element like this:
+ * <span style="color: aliceblue;background-color: darkorange;font-weight: bold;display: inline-block;"
+ *   >&nbsp;&nbsp;$(index)&nbsp;&nbsp;</span>
+ */
+function getButtonDivSpan(letterCode) {
+  var retval = document.createElement("div");
+  var spanEl = document.createElement("span");
+  spanEl.innerHTML = "&nbsp;&nbsp;" + letterCode + "&nbsp;&nbsp;";
+  // add style
+  spanEl.style["color"] = "aliceblue";
+  spanEl.style["background-color"] = "darkorange";
+  spanEl.style["font-weight"] = "bold";
+  spanEl.style["display"] = "inline-block";
+  retval.appendChild(spanEl);
   return retval;
 }
