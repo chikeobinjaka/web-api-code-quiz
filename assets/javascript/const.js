@@ -1,5 +1,3 @@
-
-
 /*
  User Data
 */
@@ -36,8 +34,18 @@ const TEST_USER_DATA = {
 
 const SESSION_ID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789";
 const SESSION_ID_LENGTH = 24;
-
+const QUIZ_TIME_SECONDS = 60;
+const QUIZ_TIME_MILLI = QUIZ_TIME_SECONDS * 1000;
+// Interval period for the quiz time. The timer display will be
+// updated within this value in milliseconds
+const QUIZ_TIME_INTERVAL_MILLI = 100;
+// number of questions for each quiz session
+const QUESTIONS_PER_QUIZ = 10;
+// time interval (in milliseconds) per question
+const QUESTION_TIME_MILLI = QUIZ_TIME_MILLI / QUESTIONS_PER_QUIZ;
 var allUserData;
+// counts the number of questions asked
+var questionCounter = 0;
 
 /*
  * Generates a random string of length len from characters in inputString
@@ -89,24 +97,30 @@ function loadAllUserData() {
   }
   if (udata != null) {
     allUserData = JSON.parse(udata);
-    // now print it by getting the keys and iterating through them
-    var objectKeys = Object.keys(allUserData);
-    console.log(objectKeys);
-    console.log(objectKeys.length);
-    var len;
-    if (objectKeys != null && (len = objectKeys.length) != 0) {
-      console.log(len);
-      var outString = len + " User Data Entries found in database\n";
-      for (let index = 0; index < len; index++) {
-        var uname = objectKeys[index];
-        var ud = allUserData[uname];
-        outString += getUserDataLogText(ud);
-      }
-      console.log(outString);
-    }
+    logAllUserData(allUserData);
   }
 }
 
+/*
+ * Console logs all user data information from localStorage
+ */
+function logAllUserData(allUserData) {
+  //now print it by getting the keys and iterating through them
+  var objectKeys = Object.keys(allUserData);
+  console.log(objectKeys);
+  console.log(objectKeys.length);
+  var len;
+  if (objectKeys != null && (len = objectKeys.length) != 0) {
+    console.log(len);
+    var outString = len + " User Data Entries found in database\n";
+    for (let index = 0; index < len; index++) {
+      var uname = objectKeys[index];
+      var ud = allUserData[uname];
+      outString += getUserDataLogText(ud);
+    }
+    console.log(outString);
+  }
+}
 /*
  * Makes sure allUserData is loaded and then returns the userData
  * corresponding to the userId

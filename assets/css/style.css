@@ -184,7 +184,14 @@ login-register-btn::after {
     font-size: 30px;
   }
 }
+.quiz-timer-style{
+  font-family: 'Quantico', sans-serif;
+  font-size: 28px;
+}
 
+button > * {
+  pointer-events: none;
+}
 
 .button-start-quiz {
     cursor: pointer;
