@@ -398,14 +398,8 @@ function getListGroupButtons(options, classArray) {
     // add the class list
     optionButton.classList.add(...classArray);
     // set the button text
-    optionButton.innerHTML = optionKey;
     optionButton.innerHTML = getButtonDivSpanHTML(optionKey, letterCode);
-    // var divSpan = getButtonDivSpan(letterCode);
-    // divSpan.textContent = optionKey;
-    // optionButton.appendChild(divSpan);
     retval.push(optionButton);
-
-    //console.log("Option Button:\n" + optionButton.outerHTML);
   }
   return retval;
 }
@@ -433,38 +427,34 @@ function getLetterCode(index) {
 }
 
 /*
- * Creates HTML String that looks like this:
- *   <div class="row justify-content-around">
- *     <span
- *         style="color: aliceblue;background-color: darkorange;font-weight: bold;display: inline-block;">
- *         &nbsp;&nbsp;$(letterCode)&nbsp;&nbsp;
- *     </span>$(optionKey)
+ * <div class="row justify-content-around">
+ *   <div class="col-md-2">
+ *     <p class="question-label">
+ *       &nbsp;&nbsp;$(letterCode)&nbsp;&nbsp;
+ *     </p>
  *   </div>
+ *   <div class="col-md-10">
+ *     <p style="font-size: medium;text-align:left;">
+ *       $(optionKey)
+ *     </p>
+ *   </div>
+ * </div>
  *
  */
 function getButtonDivSpanHTML(optionKey, letterCode) {
   var retval = '<div class="row justify-content-around">';
-  retval += '<span style="color: aliceblue;background-color: darkorange;';
-  retval += 'font-weight: bold;display: inline-block;">';
+  retval += '<div class="col-md-2 align-self-center">';
+  retval += '<p class="question-label">';
   retval += "&nbsp;&nbsp;" + letterCode + "&nbsp;&nbsp;";
-  retval += "</span>" + optionKey + "</div>";
-  return retval;
-}
-/*
- * Return a <span> element like this:
- * <span style="color: aliceblue;background-color: darkorange;font-weight: bold;display: inline-block;"
- *   >&nbsp;&nbsp;$(index)&nbsp;&nbsp;</span>
- */
-function getButtonDivSpan(letterCode) {
-  var retval = document.createElement("div");
-  var spanEl = document.createElement("span");
-  spanEl.innerHTML = "&nbsp;&nbsp;" + letterCode + "&nbsp;&nbsp;";
-  // add style
-  spanEl.style["color"] = "aliceblue";
-  spanEl.style["background-color"] = "darkorange";
-  spanEl.style["font-weight"] = "bold";
-  spanEl.style["display"] = "inline-block";
-  retval.appendChild(spanEl);
+  retval += "</p>";
+  retval += "</div>";
+  retval += '<div class="col-md-10">';
+//  retval += '<p style="font-size: medium;text-align:left;">';
+  retval += '<p style="text-align:left;">';
+  retval += optionKey;
+  retval += "</p>";
+  retval += "</div>";
+  retval += "</div>";
   return retval;
 }
 
