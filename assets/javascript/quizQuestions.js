@@ -95,7 +95,7 @@ const CHOICES11 = {
 const QUESTION12 = "Which of the following is a container?";
 const CHOICES12 = {
   "&lt;SELECT&gt;": false,
-  "&lt;SELECT&gt;": false,
+  "&lt;BODY&gt;": false,
   "&lt;INPUT&gt;": false,
   "Both (a) and (b)": true
 };
@@ -127,7 +127,7 @@ const CHOICES15 = {
 };
 
 const QUESTION16 = "From which tag the descriptive list starts?";
-const CHOICES16 = { "&lt;LL&gt;": false, "&lt;DD&gt;": false, "&lt;DD&gt;": true, "&lt;DS&gt;": false };
+const CHOICES16 = { "&lt;LL&gt;": false, "&lt;DD&gt;": false, "&lt;DL&gt;": true, "&lt;DS&gt;": false };
 
 const QUESTION17 =
   "Correct HTML to left align the content inside a table cell is";
@@ -173,14 +173,14 @@ const CHOICES21 = {
 
 const QUESTION22 =
   "The tag used to create a new list item and also include a hyperlink is";
-const CHOICES22 = { "&lt;LL&gt;": true, "&lt;DL&gt;": false, "&lt;DD&gt;": false, "&lt;UL&gt;": false };
+const CHOICES22 = { "&lt;LI&gt;": true, "&lt;DL&gt;": false, "&lt;DD&gt;": false, "&lt;UL&gt;": false };
 
 const QUESTION23 = "Can the element <First> be replaced with <first>";
 const CHOICES23 = {
   "No, they represent different elements altogether": false,
   "Both are same": true,
   "First is correct only": false,
-  "First is correct only": false
+  "first is correct only": false
 };
 
 const QUESTION24 =

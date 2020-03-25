@@ -285,7 +285,7 @@ function showQuizResult() {
   var letterGrade = getLetterGrade(correctAnswerCount, QUESTIONS_PER_QUIZ);
   removeSection.appendChild(getScoreRow("Grade:", letterGrade));
 
-  //  *  <div class="row justify-content-left">
+  //  *  <div class="row justify-content-left" id="save-score-div">
   //  *    <div class="col-md-auto">
   //  *      <h3>Save Score?</h3>
   //  *    </div>
@@ -293,7 +293,7 @@ function showQuizResult() {
   //  *      <button class="btn btn-primary" type="button" value="yes">Yes</button>
   //  *    </div>
   //  *    <div class="col-md-auto">
-  //  *      <button class="btn btn-primary" type="button" value="No">No</button>
+  //  *      <button class="btn btn-primary" type="button" value="no">No</button>
   //  *    </div>
   //  *  </div>
   //  *
@@ -302,6 +302,7 @@ function showQuizResult() {
   var lastDivEl = document.createElement("div");
   lastDivEl.classList.add("row");
   lastDivEl.classList.add("justify-content-left");
+  lastDivEl.id = "save-score-div";
   removeSection.appendChild(lastDivEl);
 
   var divRow1 = document.createElement("div");
@@ -330,6 +331,16 @@ function showQuizResult() {
   btnEl2.innerHTML = "No";
   btnEl2.type = "button";
   divRow3.appendChild(btnEl2);
+
+  lastDivEl.addEventListener("click", function() {
+    var targetEl = event.target;
+    var logText = "A yes/no button was clicked. The clicked\n";
+    logText += "item is a " + targetEl.tagName;
+    if (targetEl.tagName.toLowerCase().localeCompare("button") == 0) {
+      logText += "\n " + targetEl.value + "Button Clicked";
+    }
+    console.log(logText);
+  });
 }
 
 /*
