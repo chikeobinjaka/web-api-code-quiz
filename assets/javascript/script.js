@@ -8,18 +8,6 @@ var registerButton = document.getElementById("register-button");
 var registerationForm = document.getElementById("registration-form");
 var loginForm = document.getElementById("login-form");
 
-/*
- * updates the database with session information for this user
- */
-function setSessionData(userData) {
-  if (userData != null) {
-    var userId = userData.userName;
-    userData.sessionId = randomString(SESSION_ID_LENGTH, SESSION_ID_CHARACTERS);
-    userData.sessionTime = new Date().getTime();
-    allUserData[userId] = userData;
-    localStorage.setItem(USER_DATA_KEY, JSON.stringify(allUserData));
-  }
-}
 
 function clearRegistrationForm() {
   document.getElementById("firstname").value = "";

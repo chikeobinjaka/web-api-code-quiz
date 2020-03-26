@@ -12,6 +12,7 @@ var removeSection;
 var removeSectionParent;
 var correctAnswerCount = 0;
 var userData;
+var perCentVal;
 const DYNAMIC_SECTION_ID = "dynamic-section";
 const LIST_GROUP_DIV_ID = "list-group-div";
 const OPTIONS_BUTTON_CLASS_ARRAY = [
@@ -280,7 +281,7 @@ function showQuizResult() {
   removeSection.appendChild(getScoreRow("Correct:", correctAnswerCount));
   var incorrectCount = QUESTIONS_PER_QUIZ - correctAnswerCount;
   removeSection.appendChild(getScoreRow("Incorrect", incorrectCount));
-  var perCentVal = Math.round((correctAnswerCount / QUESTIONS_PER_QUIZ) * 100);
+  perCentVal = Math.round((correctAnswerCount / QUESTIONS_PER_QUIZ) * 100);
   removeSection.appendChild(getScoreRow("Score:", perCentVal + "%"));
   var letterGrade = getLetterGrade(correctAnswerCount, QUESTIONS_PER_QUIZ);
   removeSection.appendChild(getScoreRow("Grade:", letterGrade));
@@ -332,17 +333,50 @@ function showQuizResult() {
   btnEl2.type = "button";
   divRow3.appendChild(btnEl2);
 
-  lastDivEl.addEventListener("click", function() {
-    var targetEl = event.target;
-    var logText = "A yes/no button was clicked. The clicked\n";
-    logText += "item is a " + targetEl.tagName;
-    if (targetEl.tagName.toLowerCase().localeCompare("button") == 0) {
-      logText += "\n " + targetEl.value + "Button Clicked";
-    }
-    console.log(logText);
-  });
+  lastDivEl.addEventListener("click", quizResultEventListenerCallback);
 }
 
+function quizResultEventListenerCallback(event) {
+  var targetEl = event.target;
+  var logText = "A yes/no button was clicked. The clicked\n";
+  logText += "item is a " + targetEl.tagName;
+  if (targetEl.tagName.toLowerCase().localeCompare("button") != 0) {
+    return;
+  }
+  if (targetEl.value.toLowerCase().localeCompare("yes") == 0) {
+    saveScore(perCentVal);
+    wannaPlayAgain();
+  } else {
+    wannaPlayAgain();
+  }
+  logText += "\n " + targetEl.value + " Button Clicked";
+  console.log(logText);
+}
+
+function saveScore(perCentVal) {
+  // update UserData object
+  userData.sessionCount = userData.sessionCount + 1;
+  userData.lastScore = perCentVal;
+  if (userData.maxScore == null) {
+    userData.maxScore = perCentVal;
+  }
+  if (userData.minScore == null) {
+    userData.minScore = perCentVal;
+  }
+  if (perCentVal > userData.maxScore) {
+    userData.maxScore = perCentVal;
+  }
+  if (perCentVal < userData.minScore) {
+    userData.minScore = perCentVal;
+  }
+  setSessionData(userData);
+  console.log("\nUser Data has been updated in localStorage:");
+  console.log(getUserDataLogText(userData));
+}
+
+function wannaPlayAgain() {
+  removeSectionParent.removeChild(removeSection);
+}
 /*
  * Builds the following DIV element and returns it to be appended to the
  * removeSection:
@@ -449,7 +483,7 @@ function getButtonDivSpanHTML(optionKey, letterCode) {
   retval += "</p>";
   retval += "</div>";
   retval += '<div class="col-md-10">';
-//  retval += '<p style="font-size: medium;text-align:left;">';
+  //  retval += '<p style="font-size: medium;text-align:left;">';
   retval += '<p style="text-align:left;">';
   retval += optionKey;
   retval += "</p>";
