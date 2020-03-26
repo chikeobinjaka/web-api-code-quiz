@@ -336,6 +336,9 @@ function showQuizResult() {
   lastDivEl.addEventListener("click", quizResultEventListenerCallback);
 }
 
+/*
+ * Called as a result of asking the user if they want to save the quiz result
+ */
 function quizResultEventListenerCallback(event) {
   var targetEl = event.target;
   var logText = "A yes/no button was clicked. The clicked\n";
@@ -345,14 +348,17 @@ function quizResultEventListenerCallback(event) {
   }
   if (targetEl.value.toLowerCase().localeCompare("yes") == 0) {
     saveScore(perCentVal);
-    wannaPlayAgain();
+    doYouWantAnotherGoAtTheQuiz();
   } else {
-    wannaPlayAgain();
+    doYouWantAnotherGoAtTheQuiz();
   }
   logText += "\n " + targetEl.value + " Button Clicked";
   console.log(logText);
 }
 
+/*
+ * Updates UserData and saves the user quiz score to localStorage.
+ */
 function saveScore(perCentVal) {
   // update UserData object
   userData.sessionCount = userData.sessionCount + 1;
@@ -374,9 +380,96 @@ function saveScore(perCentVal) {
   console.log(getUserDataLogText(userData));
 }
 
-function wannaPlayAgain() {
+/*
+ * Builds UI to ask user if they want to have another go at the quiz.
+ * The UI frame is as follows:
+ *
+ *  <section id="page5-remove-section">
+ *    <div class="row justify-content-center">
+ *      <h3>Do you want another go at the Quiz?</h3>
+ *    </div>
+ *    <div
+ *      class="row justify-content-center"
+ *      style="margin-top: 20px;"
+ *      id="another-go-block"
+ *    >
+ *      <div class="col-md-auto">
+ *        <button type="button" value="yes" class="btn btn-primary">
+ *          Yes
+ *        </button>
+ *      </div>
+ *      <div class="col-md-auto">
+ *        <button type="button" value="no" class="btn btn-primary">
+ *          No
+ *        </button>
+ *      </div>
+ *    </div>
+ *  </section>
+ *
+ */
+function doYouWantAnotherGoAtTheQuiz() {
   removeSectionParent.removeChild(removeSection);
+
+  removeSection = document.createElement("section");
+  removeSection.id = "page5-remove-section";
+  removeSectionParent.appendChild(removeSection);
+
+  var divEl1 = document.createElement("div");
+  removeSection.appendChild(divEl1);
+  divEl1.classList.add(...["row", "justify-content-center"]);
+
+  var h3El = document.createElement("h3");
+  divEl1.appendChild(h3El);
+  h3El.innerHTML = "Do you want another go at the Quiz?";
+
+  var divEl2 = document.createElement("div");
+  divEl2.classList.add(...["row", "justify-content-center"]);
+  divEl2.style.marginTop = "20px";
+  divEl2.id = "another-go-block";
+  removeSection.appendChild(divEl2);
+
+  var divEl2a = document.createElement("div");
+  divEl2a.classList.add("col-md-auto");
+  divEl2.appendChild(divEl2a);
+
+  var btnEl2a = document.createElement("button");
+  btnEl2a.type = "button";
+  btnEl2a.value = "yes";
+  btnEl2a.classList.add(...["btn", "btn-primary"]);
+  btnEl2a.innerHTML = "Yes";
+  divEl2a.appendChild(btnEl2a);
+
+  var divEl2b = document.createElement("div");
+  divEl2b.classList.add("col-md-auto");
+  divEl2.appendChild(divEl2b);
+
+  var btnEl2b = document.createElement("button");
+  btnEl2b.type = "button";
+  btnEl2b.value = "no";
+  btnEl2b.classList.add(...["btn", "btn-secondary"]);
+  btnEl2b.innerHTML = "No";
+  divEl2b.appendChild(btnEl2b);
+
+  // add event listener to the DIV block holding the buttons
+  divEl2.addEventListener("click", function(event) {
+    var evTarget = event.target;
+    var logText;
+    console.log("Another Go DIV Event clicked");
+    if (evTarget.tagName.toLowerCase().localeCompare("button") == 0) {
+      logText = "Another Go Button Clicked. Value of button is: ";
+      logText += evTarget.value;
+      console.log(logText);
+      // if value is "yes" navigate to start of quiz
+      if (evTarget.value.toLowerCase().localeCompare("yes") == 0) {
+        navigateToStartOfQuiz(userData);
+      } else {
+        // go to login page
+        window.location.replace("./index.html");
+      }
+    }
+  });
 }
+
 /*
  * Builds the following DIV element and returns it to be appended to the
  * removeSection:

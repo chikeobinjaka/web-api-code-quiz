@@ -60,6 +60,15 @@ function setSessionData(userData) {
   }
 }
 
+function navigateToStartOfQuiz(userData) {
+  setSessionData(userData);
+  var targetUrl = "./page2.html?";
+  targetUrl += "userId=" + userData.userName;
+  targetUrl += "&sessionId=" + userData.sessionId;
+  targetUrl += "&sessionTime=" + userData.sessionTime;
+  window.location.replace(targetUrl);
+}
+
 /*
  * Generates a random string of length len from characters in inputString
  */

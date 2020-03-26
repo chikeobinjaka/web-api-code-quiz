@@ -189,12 +189,14 @@ loginForm.addEventListener("submit", function(event) {
   }
   // at this point, user login is validated. Clear page and go to game page
   console.log("UserID " + userNameString + " successfully logged in!!");
-  setSessionData(userData);
-  var targetUrl = "./page2.html?";
-  targetUrl += "userId=" + userData.userName;
-  targetUrl += "&sessionId=" + userData.sessionId;
-  targetUrl += "&sessionTime=" + userData.sessionTime;
-  window.location.replace(targetUrl);
+
+  navigateToStartOfQuiz(userData);
+  // setSessionData(userData);
+  // var targetUrl = "./page2.html?";
+  // targetUrl += "userId=" + userData.userName;
+  // targetUrl += "&sessionId=" + userData.sessionId;
+  // targetUrl += "&sessionTime=" + userData.sessionTime;
+  // window.location.replace(targetUrl);
 });
 
 loadAllUserData();
