@@ -149,13 +149,15 @@ function quizTimerCallback() {
 }
 /*
  * Called when the start quiz button is clicked. This function
- * will start the overall timer
+ * will start the overall timer. Also will hide the View Scores
+ * Anchor
  *
  */
 function startQuizEventListenerCallback(event) {
   var sectionEl = document.getElementById("remove-section");
   containerDivEl.removeChild(sectionEl);
-
+  // disable the scores anchor
+  viewScoresAnchorEl.href = "";
   // create DIV element with class of "row justify-content-center"
   // and append to container
   var div1 = document.createElement("div");
@@ -602,6 +604,18 @@ function getLetterGrade(correctCount, totalCount) {
   else retval = "F";
   return retval;
 }
+
+function viewScoresEventListenerCallback(event) {
+  // cancel the interval timer
+  if (quizTimeIntervalTimer != null) {
+    clearInterval(quizTimeIntervalTimer);
+  }
+}
+
 checkSessionData();
 var startQuizButtonEl = document.getElementById("start-quiz-btn");
 startQuizButtonEl.addEventListener("click", startQuizEventListenerCallback);
+var viewScoresButtonEl = document.getElementById("view-scores-btn");
+viewScoresButtonEl.addEventListener("click", viewScoresEventListenerCallback);
+// make sure button is enabled
+viewScoresButtonEl.disabled = false;

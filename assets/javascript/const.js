@@ -34,7 +34,7 @@ const TEST_USER_DATA = {
 
 const SESSION_ID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789";
 const SESSION_ID_LENGTH = 24;
-const QUIZ_TIME_SECONDS = 60;
+const QUIZ_TIME_SECONDS = 120;
 const QUIZ_TIME_MILLI = QUIZ_TIME_SECONDS * 1000;
 // Interval period for the quiz time. The timer display will be
 // updated within this value in milliseconds
