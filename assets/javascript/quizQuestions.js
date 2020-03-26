@@ -236,7 +236,7 @@ const CHOICES30 = {
   "None of the above": false
 };
 
-const QUESTIONS = {
+const HTML_QUESTIONS = {
   [QUESTION1]: CHOICES1,
   [QUESTION2]: CHOICES2,
   [QUESTION3]: CHOICES3,

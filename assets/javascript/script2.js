@@ -182,13 +182,13 @@ function startQuizEventListenerCallback(event) {
  * Grabs a random question from the list and renders it for the user to answer
  */
 function renderQuestion(removeSection) {
-  var questionsKeys = Object.keys(QUESTIONS);
+  var questionsKeys = Object.keys(HTML_QUESTIONS);
   // get a random question
   var qlen = questionsKeys.length;
   var pointer = Math.floor(Math.random() * qlen);
   // get the question
   var question = questionsKeys[pointer];
-  var options = QUESTIONS[question];
+  var options = HTML_QUESTIONS[question];
 
   // create h3 tag and append to remove-section
   var h3tag = document.createElement("h3");
