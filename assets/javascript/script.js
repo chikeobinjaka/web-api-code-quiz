@@ -8,7 +8,6 @@ var registerButton = document.getElementById("register-button");
 var registerationForm = document.getElementById("registration-form");
 var loginForm = document.getElementById("login-form");
 
-
 function clearRegistrationForm() {
   document.getElementById("firstname").value = "";
   document.getElementById("lastName").value = "";
@@ -198,5 +197,6 @@ loginForm.addEventListener("submit", function(event) {
   // targetUrl += "&sessionTime=" + userData.sessionTime;
   // window.location.replace(targetUrl);
 });
+console.log(shuffleArray(Object.keys(HTML_QUESTIONS), 10));
 
 loadAllUserData();

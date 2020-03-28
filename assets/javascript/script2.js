@@ -147,6 +147,7 @@ function quizTimerCallback() {
     showQuizResult();
   }
 }
+
 /*
  * Called when the start quiz button is clicked. This function
  * will start the overall timer. Also will hide the View Scores
@@ -156,8 +157,6 @@ function quizTimerCallback() {
 function startQuizEventListenerCallback(event) {
   var sectionEl = document.getElementById("remove-section");
   containerDivEl.removeChild(sectionEl);
-  // disable the scores anchor
-  viewScoresAnchorEl.href = "";
   // create DIV element with class of "row justify-content-center"
   // and append to container
   var div1 = document.createElement("div");
@@ -184,13 +183,17 @@ function startQuizEventListenerCallback(event) {
  * Grabs a random question from the list and renders it for the user to answer
  */
 function renderQuestion(removeSection) {
-  var questionsKeys = Object.keys(HTML_QUESTIONS);
+  // var questionsObject = US_CIVICS_QUESTIONS;
+  // var questionsObject = HTML_QUESTIONS;
+  var questionsObject = CSS_HTML_QUESTIONS;
+
+  var questionsKeys = Object.keys(questionsObject);
   // get a random question
   var qlen = questionsKeys.length;
   var pointer = Math.floor(Math.random() * qlen);
   // get the question
   var question = questionsKeys[pointer];
-  var options = HTML_QUESTIONS[question];
+  var options = questionsObject[question];
 
   // create h3 tag and append to remove-section
   var h3tag = document.createElement("h3");
@@ -607,15 +610,149 @@ function getLetterGrade(correctCount, totalCount) {
 
 function viewScoresEventListenerCallback(event) {
   // cancel the interval timer
+  console.log("View Your Scores Button Pressed");
   if (quizTimeIntervalTimer != null) {
     clearInterval(quizTimeIntervalTimer);
   }
+  if (
+    allUserData != null &&
+    userData != null &&
+    removeSection != null &&
+    removeSectionParent != null
+  ) {
+    displayStatistics();
+  }
 }
 
-checkSessionData();
-var startQuizButtonEl = document.getElementById("start-quiz-btn");
-startQuizButtonEl.addEventListener("click", startQuizEventListenerCallback);
-var viewScoresButtonEl = document.getElementById("view-scores-btn");
-viewScoresButtonEl.addEventListener("click", viewScoresEventListenerCallback);
-// make sure button is enabled
-viewScoresButtonEl.disabled = false;
+/*
+ * Displays current user stats as well as best stats of all users
+ * <section id="remove-section">
+ *   <div class="row justify-content-around">
+ *     <div class="col-md-6" id="user-stats">
+ *       <h4 id="user-stat-header" style="color: blue;">
+ *         Statistics for Chikeobi
+ *       </h4>
+ *       <div class="row">
+ *         <div class="col-md">
+ *           <h5>Max: 85%</h5>
+ *           <h5>Min: 30%</h5>
+ *           <h5>Quiz Taken: 20</h5>
+ *         </div>
+ *       </div>
+ *     </div>
+ *     <div class="col-md-6" id="top-score-summary">
+ *       <h4 id="top-score-header" style="color: blue;">
+ *         Top Score Summary
+ *       </h4>
+ *       <div class="row">
+ *         <div class="col-md">
+ *           <h5>Chikeobi Njaka: 85%</h5>
+ *           <h5>Jane Doe: 30%</h5>
+ *           <h5>Jack Doe: 20%</h5>
+ *         </div>
+ *       </div>
+ *     </div>
+ *   </div>
+ * </section>
+ *
+ */
+function displayStatistics() {
+  if (removeSection === null || removeSectionParent === null) {
+    return;
+  }
+  removeSectionParent.removeChild(removeSection);
+  removeSection = document.createElement("section");
+  removeSection.id = "remove-section";
+  removeSectionParent.appendChild(removeSection);
+
+  var div1 = document.createElement("div");
+  div1.classList.add(...["row", "justify-content-around"]);
+  removeSection.appendChild(div1);
+
+  var div1a = document.createElement("div");
+  div1a.classList.add("col-md-6");
+  div1a.id = "user-stats";
+  div1.appendChild(div1a);
+
+  var h4a = document.createElement("h4");
+  h4a.id = "user-stat-header";
+  h4a.style.color = "blue";
+  h4a.innerHTML = "Statistics for " + userData.firstName;
+  div1a.appendChild(h4a);
+
+  var div1aa = document.createElement("div");
+  div1aa.classList.add("row");
+  div1a.appendChild(div1aa);
+
+  var div1aaa = document.createElement("div");
+  div1aaa.classList.add("col-md");
+  div1aa.appendChild(div1aaa);
+
+  var h51a = document.createElement("h5");
+  h51a.innerHTML = "Max: " + userData.maxScore + "%";
+  var h51b = document.createElement("h5");
+  h51b.innerHTML = "Min: " + userData.minScore + "%";
+  var h51c = document.createElement("h5");
+  h51c.innerHTML = "Quiz Taken: " + userData.sessionCount;
+  div1aaa.appendChild(h51a);
+  div1aaa.appendChild(h51b);
+  div1aaa.appendChild(h51c);
+
+  var div1b = document.createElement("div");
+  div1b.id = "top-score-summary";
+  div1.appendChild(div1b);
+
+  var h4b = document.createElement("h4");
+  h4b.id = "top-score-header";
+  h4b.style.color = "blue";
+  h4b.innerHTML = "Top Score Summary";
+  div1b.appendChild(h4b);
+
+  var div1baa = document.createElement("div");
+  div1baa.classList.add("row");
+  div1b.appendChild(div1baa);
+
+  var div1baaa = document.createElement("div");
+  div1baaa.classList.add("col-md");
+
+  // build Key/Value pairs of subset of UserData that has as key the
+  // UserName and max score as value
+  var userIdMaxScore = {};
+  var userIds = Object.keys(allUserData);
+  for (let index = 0; index < userIds.length; index++) {
+    var uid = userIds[index];
+    var udata = allUserData[uid];
+    if (udata != null) {
+      var maxScore = 0;
+      if (udata.maxScore != null) {
+        maxScore = udata.maxScore;
+      }
+      var fullName = udata.firstName + " " + udata.lastName + " (" + uid + ")";
+      userIdMaxScore[fullName] = maxScore;
+    }
+  }
+
+  // sort key/value pair
+  var sortedUidMaxScore = sortObjectPropertiesByValue(userIdMaxScore, true);
+  var len = 5;
+  if (sortedUidMaxScore.length < len) len = sortedUidMaxScore.len;
+  var userIds = Object.keys(sortedUidMaxScore);
+  var h5_2;
+  for (let index = 0; index < len; index++) {
+    h5_2 = document.createElement("h5");
+    var fullName = userIds[index];
+    h5_2.innerHTML = fullName + ": " + sortedUidMaxScore[fullName] + "%";
+    div1baaa.appendChild(h5_2);
+  }
+  console.log(removeSection.outerHTML);
+}
+
+$(document).ready(function() {
+  checkSessionData();
+  var startQuizButtonEl = document.getElementById("start-quiz-btn");
+  startQuizButtonEl.addEventListener("click", startQuizEventListenerCallback);
+  var viewScoresButtonEl = document.getElementById("view-scores-btn");
+  viewScoresButtonEl.addEventListener("click", viewScoresEventListenerCallback);
+  // make sure button is enabled
+  viewScoresButtonEl.disabled = false;
+});
