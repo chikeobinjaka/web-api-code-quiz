@@ -610,7 +610,7 @@ function getLetterGrade(correctCount, totalCount) {
 
 function viewScoresEventListenerCallback(event) {
   // cancel the interval timer
-  console.log("View Your Scores Button Pressed");
+  console.log("View Your Scores Button Pressed!!");
   if (quizTimeIntervalTimer != null) {
     clearInterval(quizTimeIntervalTimer);
   }
@@ -660,6 +660,8 @@ function displayStatistics() {
   if (removeSection === null || removeSectionParent === null) {
     return;
   }
+  console.log("Display Statistics Function called");
+
   removeSectionParent.removeChild(removeSection);
   removeSection = document.createElement("section");
   removeSection.id = "remove-section";
@@ -719,6 +721,7 @@ function displayStatistics() {
   // UserName and max score as value
   var userIdMaxScore = {};
   var userIds = Object.keys(allUserData);
+  console.log(userIds);
   for (let index = 0; index < userIds.length; index++) {
     var uid = userIds[index];
     var udata = allUserData[uid];
