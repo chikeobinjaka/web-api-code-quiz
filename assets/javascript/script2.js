@@ -15,12 +15,7 @@ var userData;
 var perCentVal;
 const DYNAMIC_SECTION_ID = "dynamic-section";
 const LIST_GROUP_DIV_ID = "list-group-div";
-const OPTIONS_BUTTON_CLASS_ARRAY = [
-  "btn",
-  "btn-primary",
-  "btn-lg",
-  "btn-block"
-];
+const OPTIONS_BUTTON_CLASS_ARRAY = ["btn", "btn-primary", "btn-lg", "btn-block"];
 
 /*
  * Updates the Quiz remaining time element from remaining time
@@ -172,10 +167,7 @@ function startQuizEventListenerCallback(event) {
   removeSection.id = "remove-section";
   removeSectionParent.appendChild(removeSection);
 
-  quizTimeIntervalTimer = setInterval(
-    quizTimerCallback,
-    QUIZ_TIME_INTERVAL_MILLI
-  );
+  quizTimeIntervalTimer = setInterval(quizTimerCallback, QUIZ_TIME_INTERVAL_MILLI);
   renderQuestion(removeSection);
 }
 
@@ -183,9 +175,9 @@ function startQuizEventListenerCallback(event) {
  * Grabs a random question from the list and renders it for the user to answer
  */
 function renderQuestion(removeSection) {
-  // var questionsObject = US_CIVICS_QUESTIONS;
+  var questionsObject = US_CIVICS_QUESTIONS;
   // var questionsObject = HTML_QUESTIONS;
-  var questionsObject = CSS_HTML_QUESTIONS;
+  //var questionsObject = CSS_HTML_QUESTIONS;
 
   var questionsKeys = Object.keys(questionsObject);
   // get a random question
@@ -716,7 +708,7 @@ function displayStatistics() {
 
   var div1baaa = document.createElement("div");
   div1baaa.classList.add("col-md");
-
+  div1baa.appendChild(div1baaa);
   // build Key/Value pairs of subset of UserData that has as key the
   // UserName and max score as value
   var userIdMaxScore = {};
@@ -735,18 +727,24 @@ function displayStatistics() {
     }
   }
 
+  console.log(userIdMaxScore);
   // sort key/value pair
   var sortedUidMaxScore = sortObjectPropertiesByValue(userIdMaxScore, true);
-  var len = 5;
-  if (sortedUidMaxScore.length < len) len = sortedUidMaxScore.len;
+  console.log(sortedUidMaxScore);
+  var counter = sortedUidMaxScore.length;
+  if (counter > 5) {
+    counter = 5;
+  }
   var userIds = Object.keys(sortedUidMaxScore);
   var h5_2;
-  for (let index = 0; index < len; index++) {
+  console.log(counter);
+  for (let index = 0; index < counter; index++) {
     h5_2 = document.createElement("h5");
     var fullName = userIds[index];
     h5_2.innerHTML = fullName + ": " + sortedUidMaxScore[fullName] + "%";
     div1baaa.appendChild(h5_2);
   }
+  console.log(div1baaa.outerHTML);
   console.log(removeSection.outerHTML);
 }
 
